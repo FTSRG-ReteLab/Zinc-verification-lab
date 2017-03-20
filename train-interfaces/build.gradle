@@ -1,3 +1,2 @@
 plugins {     id "org.sonarqube" version "2.2"   }
-dependencies {
-}
+dependencies { testCompile "org.mockito:mockito-core:2.+" }
