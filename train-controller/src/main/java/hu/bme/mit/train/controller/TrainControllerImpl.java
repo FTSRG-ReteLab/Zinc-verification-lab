@@ -7,6 +7,7 @@ public class TrainControllerImpl implements TrainController {
 	private int step = 0;
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
+	private Thread thread = new Thread(new Simulation());
 
 	@Override
 	public void followSpeed() {
@@ -43,7 +44,25 @@ public class TrainControllerImpl implements TrainController {
 
 	@Override
 	public void setJoystickPosition(int joystickPosition) {
-		this.step = joystickPosition;		
+		this.step = joystickPosition;
+		
+		thread.start();
+	}
+	
+	private class Simulation implements Runnable{
+
+		@Override
+		public void run() {
+			while(true){
+				try {
+					followSpeed();
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 }
